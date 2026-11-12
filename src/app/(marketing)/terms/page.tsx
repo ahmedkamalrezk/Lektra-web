@@ -34,6 +34,15 @@ const SECTIONS = [
     ],
   },
   {
+    id: "intellectual-property",
+    title: "Intellectual property",
+    body: [
+      "Lektra — the app, this website, its source code, design, copy, icons and screenshots — belongs to its author and is not open source.",
+      "You may read the code and run an unmodified copy for your own private, noncommercial use. You may not modify it, build other works on it, redistribute it, or use it commercially, and the Lektra name and logo may not be reused for another project.",
+      "Everything you add to the app stays yours. Nothing in this section claims any rights over your subjects, classes, notes or backups.",
+    ],
+  },
+  {
     id: "ai-features",
     title: "AI features",
     body: [
@@ -104,7 +113,7 @@ export default function TermsPage() {
               <span className="legal-title-soft">in plain words.</span>
             </h1>
             <p className="legal-meta">
-              Last updated <time dateTime="2026-11-11">November&nbsp;11, 2026</time>
+              Last updated <time dateTime="2026-11-12">November&nbsp;12, 2026</time>
               <span className="legal-meta-sep">·</span>
               <Link href={FEEDBACK_HREF} className="legal-meta-link">
                 Send feedback

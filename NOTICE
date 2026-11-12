@@ -1,0 +1,27 @@
+Lektra
+Copyright (c) 2026 Ahmed Kamal
+All rights reserved.
+
+This repository — the Lektra marketing site, its source code, design, copy,
+icons, screenshots and images — is not open source. It is licensed, not sold,
+under the PolyForm Strict License 1.0.0 in LICENSE.
+
+You may read the source and run an unmodified copy for private, noncommercial
+use. You may not modify it, create derivative works from it, redistribute it,
+or use it commercially. The Lektra name, logo, icon and visual design are not
+licensed for reuse.
+
+Third-party components keep their own licenses and are not covered by the
+notice above. In particular:
+
+  Next.js, React, React DOM     MIT
+  Tailwind CSS                  MIT
+  GSAP                          GreenSock's own license
+  Gellix, SF Arabic             third-party typefaces, licensed separately
+                                from this project
+
+Nothing here grants rights to those components beyond what their own licenses
+allow, and nothing in their licenses grants rights to this project's code,
+design or brand.
+
+Full terms: LICENSE

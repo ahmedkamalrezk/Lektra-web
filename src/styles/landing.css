@@ -815,7 +815,7 @@
 
 /* Abstract mark — six elements, presents the count visually.
  * Soft lavender that fits the dark-section ambient (hero aurora,
- * AGPL-3 callout glow, fcta wash all draw from this hue family).
+ * the local-first callout glow, fcta wash all draw from this hue family).
  */
 .cp-group-mark {
   width: 72px;
@@ -1333,7 +1333,7 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   OPEN SOURCE — magazine spread, AGPL-3 design moment
+   PRIVATE BY DESIGN — magazine spread, local-first design moment
    ═══════════════════════════════════════════════════════════════ */
 .os-section {
   position: relative;
@@ -1401,7 +1401,7 @@
 }
 .os-btn--ghost:hover { border-color: var(--th-bd-strong); }
 
-/* Right side — AGPL-3 callout + meta */
+/* Right side — local-first callout + meta */
 .os-side {
   display: flex;
   flex-direction: column;

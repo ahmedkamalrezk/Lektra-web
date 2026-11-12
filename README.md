@@ -12,7 +12,7 @@ The marketing site for Lektra — a calm, offline-first study planner for studen
 [![React](https://img.shields.io/badge/React-19-087ea4?logo=react&logoColor=white)](https://react.dev)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![License](https://img.shields.io/badge/License-AGPL--3.0-6f42c1.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-All_Rights_Reserved-b3261e.svg)](LICENSE)
 
 [**Open the app**](https://ahmedkamalrezk.github.io/Lektra/) · [App source](https://github.com/ahmedkamalrezk/Lektra) · [Report a bug](https://github.com/ahmedkamalrezk/Lektra-web/issues) · [Request a feature](https://github.com/ahmedkamalrezk/Lektra-web/issues)
 
@@ -119,7 +119,13 @@ in `next.config.mjs` and served from any static host.
 
 ## License
 
-[AGPL-3.0](LICENSE).
+**All rights reserved — this repository is not open source.**
+
+It is published under the [PolyForm Strict License 1.0.0](LICENSE): you may
+read the code and run an unmodified copy for private, noncommercial use. You
+may **not** modify it, build new works on it, redistribute it, or use it
+commercially. The Lektra name, icon, screenshots and design belong to their
+author and are not licensed for reuse.
 
 <div align="center">
 <sub>Built for the way you actually study.</sub>

@@ -1,6 +1,5 @@
+import { APP_URL } from "@/lib/site";
 import { DarkSection } from "./dark-section";
-
-const APP_URL = "https://ahmedkamalrezk.github.io/Lektra/";
 
 export function FinalCta() {
   return (

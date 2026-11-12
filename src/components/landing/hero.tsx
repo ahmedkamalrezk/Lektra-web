@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const APP_URL = "https://ahmedkamalrezk.github.io/Lektra/";
+import { APP_URL } from "@/lib/site";
 
 const TOPICS = [
   {

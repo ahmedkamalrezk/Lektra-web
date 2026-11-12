@@ -3,8 +3,9 @@
  * local-first design moment + meta data right. No card grid, no install
  * terminal.
  */
-const APP_URL = "https://ahmedkamalrezk.github.io/Lektra/";
-const GITHUB_URL = "https://github.com/ahmedkamalrezk/Lektra";
+import Link from "next/link";
+
+import { APP_URL, FEEDBACK_HREF } from "@/lib/site";
 
 export function OpenSource() {
   return (
@@ -31,14 +32,9 @@ export function OpenSource() {
               >
                 Open Lektra
               </a>
-              <a
-                className="os-btn os-btn--ghost"
-                href={GITHUB_URL}
-                target="_blank"
-                rel="noreferrer"
-              >
-                View on GitHub
-              </a>
+              <Link className="os-btn os-btn--ghost" href={FEEDBACK_HREF}>
+                Send feedback
+              </Link>
             </div>
           </div>
 

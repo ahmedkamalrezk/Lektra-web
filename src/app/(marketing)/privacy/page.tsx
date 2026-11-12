@@ -1,6 +1,7 @@
-import { Navbar, Footer } from "@/components/landing";
+import Link from "next/link";
 
-const GITHUB_ISSUES = "https://github.com/ahmedkamalrezk/Lektra/issues";
+import { Navbar, Footer } from "@/components/landing";
+import { FEEDBACK_HREF } from "@/lib/site";
 
 export const metadata = {
   title: "Privacy · Lektra",
@@ -83,9 +84,9 @@ export default function PrivacyPage() {
             <p className="legal-meta">
               Last updated <time dateTime="2026-11-11">November&nbsp;11, 2026</time>
               <span className="legal-meta-sep">·</span>
-              <a href={GITHUB_ISSUES} className="legal-meta-link" target="_blank" rel="noreferrer">
-                Questions on GitHub
-              </a>
+              <Link href={FEEDBACK_HREF} className="legal-meta-link">
+                Send feedback
+              </Link>
             </p>
           </div>
         </section>
@@ -124,8 +125,7 @@ export default function PrivacyPage() {
 
                 <footer className="legal-foot">
                   <p>
-                    Questions? Open an issue on{" "}
-                    <a href={GITHUB_ISSUES} target="_blank" rel="noreferrer">GitHub</a>.
+                    Questions? <Link href={FEEDBACK_HREF}>Send us feedback</Link>.
                   </p>
                 </footer>
               </article>

@@ -1,6 +1,5 @@
 import { Navbar, Footer } from "@/components/landing";
-
-const APP_URL = "https://ahmedkamalrezk.github.io/Lektra/";
+import { APP_URL } from "@/lib/site";
 
 export const metadata = {
   title: "Pricing · Lektra",

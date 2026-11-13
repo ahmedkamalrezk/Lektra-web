@@ -56,11 +56,12 @@ linked from every call to action here.
 
 ## Tech
 
-- **Next.js 16** (App Router, static export-ready, Turbopack in dev)
+- **Next.js 16** (App Router, fully static export, Turbopack in dev)
 - **React 19** + **TypeScript**
 - **Tailwind CSS 4** for utilities, plus hand-written CSS for the landing sections
 - **GSAP + ScrollTrigger** for the scroll-driven section transitions
-- **Self-hosted fonts** — Gellix and SF Arabic in `public/fonts`, no third-party CDN
+- **Self-hosted fonts** — Gellix and SF Arabic in `src/fonts`, loaded through
+  `next/font/local` (fingerprinted, no third-party CDN)
 - No analytics, no trackers, no external requests at runtime
 
 ## Getting started
@@ -74,7 +75,14 @@ Build and preview the production output:
 
 ```bash
 bun run build
-bun run start
+bun run start    # serves out/ at http://localhost:3009
+```
+
+To reproduce the GitHub Pages build locally — same base path, same asset URLs:
+
+```bash
+bun run build:pages
+NEXT_PUBLIC_BASE_PATH=/Lektra-web bun run start   # http://localhost:3009/Lektra-web/
 ```
 
 > Node 20+ is required.
@@ -83,23 +91,27 @@ bun run start
 
 ```text
 .
-├── public/                     icons, screenshots, OG image, fonts
-│   ├── fonts/                  Gellix + SF Arabic (woff2/ttf)
+├── .github/workflows/          deploy.yml — builds and publishes to Pages
+├── scripts/preview.mjs         zero-dependency server for out/
+├── public/                     icons, screenshots, OG image
 │   └── *.webp                  app screens used across the page
 └── src/
     ├── app/
     │   ├── page.tsx            landing page composition
     │   ├── layout.tsx          metadata, icons, OG/Twitter cards
+    │   ├── fonts.ts            next/font/local — Gellix + SF Arabic
     │   ├── download/           install guide
+    │   ├── feedback/           feedback page + form
     │   ├── (marketing)/        pricing, privacy, terms
     │   ├── robots.ts           crawl rules + sitemap
     │   └── sitemap.ts          route list
     ├── components/landing/     one component per page section
+    ├── fonts/                  Gellix + SF Arabic (woff2/ttf)
     ├── hooks/                  scroll helpers
+    ├── lib/site.ts             links, deployment path, feedback email
     └── styles/
         ├── theme.css           colour, surface and text tokens
-        ├── landing.css         section layouts and animations
-        └── fonts.css           @font-face declarations
+        └── landing.css         section layouts and animations
 ```
 
 ## Editing the site
@@ -108,14 +120,37 @@ bun run start
   file is self-contained.
 - **Colours and surfaces** are tokens in `src/styles/theme.css`.
 - **Screenshots** are plain images in `public/`; swap a file and every section
-  that references it updates.
+  that references it updates. Reference them through `asset()` from
+  `src/lib/site.ts` so they keep working behind a deployment base path.
 - **SEO** is centralised in `src/app/layout.tsx`, `robots.ts` and `sitemap.ts`.
 
 ## Deploy
 
-The app builds to standard Next.js output, so any Node host works. For a fully
-static deployment, the marketing routes can be exported with `output: "export"`
-in `next.config.mjs` and served from any static host.
+The site is a static export (`output: "export"`), so it runs anywhere that can
+serve files: GitHub Pages, Netlify, Cloudflare Pages, S3, nginx.
+
+### GitHub Pages
+
+`.github/workflows/deploy.yml` builds the site and publishes `out/` on every
+push to `main`. In the repository, set **Settings → Pages → Source** to
+**GitHub Actions** once; after that the workflow handles every deploy.
+
+Because a Pages project site lives at `/<repo>`, the build runs with:
+
+```bash
+NEXT_PUBLIC_BASE_PATH=/Lektra-web
+NEXT_PUBLIC_SITE_URL=https://ahmedkamalrezk.github.io/Lektra-web
+```
+
+`BASE_PATH` prefixes every internal link and asset (fonts and images go through
+`asset()`); `SITE_URL` feeds the canonical metadata, `robots.txt` and
+`sitemap.xml`. Serve the site from a root domain and both can be left empty.
+
+### Anywhere else
+
+```bash
+bun run build      # writes out/ — no base path
+```
 
 ## License
 

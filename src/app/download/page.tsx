@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import { APP_URL, FEEDBACK_HREF } from "@/lib/site";
+import { APP_URL, FEEDBACK_HREF, asset } from "@/lib/site";
 
 /* ── Platform icons ── */
 function AppleIcon({ className }: { className?: string }) {
@@ -144,7 +144,7 @@ export default function DownloadPage() {
           <Link href="/" className="flex items-center gap-2.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/lektra-icon-192.png"
+              src={asset("/lektra-icon-192.png")}
               alt=""
               width={28}
               height={28}

@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 
-const BASE_URL = "https://ahmedkamalrezk.github.io/Lektra";
+import { SITE_URL } from "@/lib/site";
+
+export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date().toISOString();
@@ -14,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   return routes.map((r) => ({
-    url: `${BASE_URL}${r.path}`,
+    url: `${SITE_URL}${r.path}`,
     lastModified: now,
     changeFrequency: r.changeFrequency,
     priority: r.priority,

@@ -1,10 +1,9 @@
 @import "tailwindcss";
-@import "../styles/fonts.css";
 @import "../styles/theme.css";
 @import "../styles/landing.css";
 
 @theme inline {
-  --font-sans: 'Gellix', 'SF Arabic', system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-gellix), var(--font-arabic), system-ui, -apple-system, sans-serif;
 }
 
 @layer base {

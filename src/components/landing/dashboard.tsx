@@ -2,6 +2,8 @@
  * Hero showcase — three app screens stacked like a deck. The back cards
  * fan out on hover. The screenshots are the story, no copy needed.
  */
+import { asset } from "@/lib/site";
+
 export function Dashboard() {
   return (
     <section className="dashboard-showcase">
@@ -10,7 +12,7 @@ export function Dashboard() {
           <div className="dashboard-stack__back dashboard-stack__back--left" aria-hidden="true">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/scan.webp"
+              src={asset("/scan.webp")}
               alt=""
               loading="lazy"
               decoding="async"
@@ -21,7 +23,7 @@ export function Dashboard() {
           <div className="dashboard-stack__back dashboard-stack__back--right" aria-hidden="true">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/voice.webp"
+              src={asset("/voice.webp")}
               alt=""
               loading="lazy"
               decoding="async"
@@ -32,7 +34,7 @@ export function Dashboard() {
           <div className="dashboard-stack__center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/calendar.webp"
+              src={asset("/calendar.webp")}
               alt="Lektra's November calendar with classes, quizzes and deadlines"
               loading="lazy"
               decoding="async"

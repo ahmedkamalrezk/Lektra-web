@@ -9,7 +9,7 @@ const NAV_ITEMS = [
   { label: "Privacy", href: "/privacy" },
 ];
 
-import { APP_URL, FEEDBACK_HREF } from "@/lib/site";
+import { APP_URL, FEEDBACK_HREF, asset } from "@/lib/site";
 
 export function Navbar() {
   const [dark, setDark] = useState(false);
@@ -39,7 +39,7 @@ export function Navbar() {
         <Link href="/" className="relative z-10 flex items-center gap-2.5">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/lektra-icon-192.png"
+            src={asset("/lektra-icon-192.png")}
             alt=""
             width={30}
             height={30}

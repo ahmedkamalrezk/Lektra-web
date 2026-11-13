@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { asset } from "@/lib/site";
+
 /**
  * "How it works" — the rest of the app, walked through. Numbered steps
  * scroll past a sticky preview card that swaps to the matching screen.
@@ -22,7 +24,7 @@ const STEPS: Step[] = [
     label: "Themes",
     title: "Make it yours.",
     desc: "Light, dark or system — then an accent colour and one of forty themes, from Matcha and Lavender to Dracula and Obsidian. Or build a theme of your own.",
-    img: "/theme-gallery.webp",
+    img: asset("/theme-gallery.webp"),
     alt: "The theme gallery in Lektra showing light and dark presets",
     caption: "Forty presets, light and dark, plus your own.",
   },
@@ -30,7 +32,7 @@ const STEPS: Step[] = [
     label: "Search",
     title: "Find it in a second.",
     desc: "One field searches every class, quiz and deadline. Filter down to events or classes, then jump straight to the day it belongs to.",
-    img: "/search-results.webp",
+    img: asset("/search-results.webp"),
     alt: "Lektra search showing quiz results across subjects",
     caption: "Every event and class, from one field.",
   },
@@ -38,7 +40,7 @@ const STEPS: Step[] = [
     label: "Settings",
     title: "One place for the small stuff.",
     desc: "Install it to the home screen, choose how early reminders arrive, set the voice language, and decide what the month cells show.",
-    img: "/settings-menu.webp",
+    img: asset("/settings-menu.webp"),
     alt: "Lektra settings with install, appearance, reminders and backup",
     caption: "Install, reminders, voice.",
   },
@@ -46,7 +48,7 @@ const STEPS: Step[] = [
     label: "Backup",
     title: "Pack it up and go.",
     desc: "Export a small schedule file and restore it on a new phone. Lecture files stay on the device, and nothing leaves it unless you say so.",
-    img: "/backup-restore.webp",
+    img: asset("/backup-restore.webp"),
     alt: "Lektra backup and restore sheet over the November calendar",
     caption: "A small file, saved wherever you like.",
   },

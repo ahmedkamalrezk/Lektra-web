@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "next dev --port 3009",
     "build": "next build",
-    "start": "next start --port 3009",
+    "build:pages": "NEXT_PUBLIC_BASE_PATH=/Lektra-web next build",
+    "start": "node scripts/preview.mjs",
     "lint": "next lint"
   },
   "dependencies": {

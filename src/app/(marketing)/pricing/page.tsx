@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Navbar, Footer } from "@/components/landing";
 import { APP_URL } from "@/lib/site";
 
@@ -99,13 +101,13 @@ export default function PricingPage() {
               >
                 Open Lektra
               </a>
-              <a
+              <Link
                 href="/download"
                 className="rounded-full px-6 py-2.5 text-[14px] font-medium transition-colors"
                 style={{ color: "var(--th-text-secondary)" }}
               >
                 Install guide
-              </a>
+              </Link>
             </div>
           </div>
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 import { APP_URL } from "@/lib/site";
@@ -179,7 +180,7 @@ export function Hero() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </a>
-            <a
+            <Link
               href="/download"
               className="th-btn-ghost group rounded-full px-7 py-3 text-[15px] font-medium"
             >
@@ -193,7 +194,7 @@ export function Hero() {
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

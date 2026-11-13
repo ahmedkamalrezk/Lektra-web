@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { APP_URL } from "@/lib/site";
 import { DarkSection } from "./dark-section";
 
@@ -22,9 +24,9 @@ export function FinalCta() {
             >
               Open Lektra
             </a>
-            <a href="/download" className="fcta-btn fcta-btn--ghost">
+            <Link href="/download" className="fcta-btn fcta-btn--ghost">
               Install guide
-            </a>
+            </Link>
           </div>
           <ul className="fcta-trust">
             <li>Free</li>

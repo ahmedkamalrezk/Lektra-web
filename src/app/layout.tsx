@@ -47,7 +47,7 @@ export const metadata: Metadata = {
       "Lectures, sections, labs, quizzes and deadlines in one calm place. Free, offline, and yours.",
     images: [
       {
-        url: `${SITE_URL}${asset("/og.jpg")}`,
+        url: `${SITE_URL}/og.jpg`,
         width: 1200,
         height: 630,
         alt: "Lektra checking a scanned timetable, the November calendar, and an entry filled from a spoken sentence",

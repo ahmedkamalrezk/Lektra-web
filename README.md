@@ -47,7 +47,8 @@ linked from every call to action here.
 
 | Page | What it is |
 | --- | --- |
-| `/` | Landing page: hero, the three-screen stack, features, install models, the full capability grid, themes/search/settings/backup walkthrough, comparison, privacy |
+| `/` | Landing page: hero, seven app screens with one-line captions, final call to action |
+| `/features` | The detail: six core features, install models, every capability, the comparison, privacy |
 | `/download` | Install instructions for iPhone, Android and desktop (PWA) |
 | `/pricing` | Free, forever — and what that means |
 | `/feedback` | Report a bug, suggest a feature, or say hello — opens a pre-filled mail with your message |

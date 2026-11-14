@@ -159,7 +159,7 @@ export default function DownloadPage() {
           </Link>
           <nav className="flex items-center gap-6">
             <Link
-              href="/#features"
+              href="/features"
               className="text-[14px] font-medium transition-colors"
               style={{ color: "var(--th-text-secondary)" }}
             >

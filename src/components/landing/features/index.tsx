@@ -128,16 +128,7 @@ export function Features() {
     <section id="features" className="feat-outer">
       <DarkSection>
         <div className="feat-container">
-          <header className="feat-head">
-            <p className="feat-eyebrow">The app</p>
-            <h2 className="feat-title">
-              Everything between your timetable and your day
-            </h2>
-            <p className="feat-sub">
-              Lektra keeps the term in order — the classes, the quizzes, the small
-              deadlines — so your attention can stay on the work itself.
-            </p>
-          </header>
+          <h2 className="sr-only">Core features</h2>
 
           <div className="feat-grid">
             {FEATURES.map((f) => (

@@ -4,7 +4,7 @@ import { APP_URL, FEEDBACK_HREF, asset } from "@/lib/site";
 
 const footerLinks = {
   Product: [
-    { label: "Features", href: "/#features" },
+    { label: "Features", href: "/features" },
     { label: "Install", href: "/download" },
     { label: "Pricing", href: "/pricing" },
   ],

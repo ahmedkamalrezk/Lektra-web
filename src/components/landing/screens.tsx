@@ -1,7 +1,11 @@
 /**
- * Screens — the app itself, seven times. Each screenshot sits in a phone frame
- * with a one-line caption underneath; no paragraph is longer than a sentence.
+ * Screens — the app itself, seven times. The phone stays pinned while the
+ * copy scrolls past it; each line of copy swaps the screen behind the glass.
  */
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
 import { asset } from "@/lib/site";
 
 type Screen = {
@@ -57,6 +61,42 @@ const SCREENS: Screen[] = [
 ];
 
 export function Screens() {
+  const [active, setActive] = useState(0);
+  const stepsRef = useRef<HTMLOListElement | null>(null);
+
+  useEffect(() => {
+    const list = stepsRef.current;
+    if (!list) return;
+    const steps = Array.from(list.querySelectorAll<HTMLElement>("[data-step]"));
+    if (!steps.length) return;
+
+    let frame = 0;
+
+    const sync = () => {
+      frame = 0;
+      const narrow = window.matchMedia("(max-width: 899px)").matches;
+      const line = window.innerHeight * (narrow ? 0.68 : 0.45);
+      let next = 0;
+      for (let i = 0; i < steps.length; i += 1) {
+        if (steps[i].getBoundingClientRect().top <= line) next = i;
+      }
+      setActive((prev) => (prev === next ? prev : next));
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(sync);
+    };
+
+    sync();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
   return (
     <section className="scr-section" aria-labelledby="scr-title">
       <div className="scr-container">
@@ -67,29 +107,39 @@ export function Screens() {
           </h2>
         </header>
 
-        <ul className="scr-grid">
-          {SCREENS.map((s) => (
-            <li key={s.img} className="scr-item">
-              <figure className="scr-figure">
-                <div className="scr-frame">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={s.img}
-                    alt={s.alt}
-                    width={1170}
-                    height={2532}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <figcaption className="scr-caption">
-                  <h3 className="scr-name">{s.title}</h3>
-                  <p className="scr-line">{s.line}</p>
-                </figcaption>
-              </figure>
-            </li>
-          ))}
-        </ul>
+        <div className="scr-layout">
+          <div className="scr-visual">
+            <div className="scr-frame">
+              {SCREENS.map((s, i) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={s.img}
+                  src={s.img}
+                  alt={s.alt}
+                  width={1170}
+                  height={2532}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  className={`scr-shot${i === active ? " is-active" : ""}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          <ol className="scr-steps" ref={stepsRef}>
+            {SCREENS.map((s, i) => (
+              <li
+                key={s.img}
+                data-step={i}
+                className={`scr-step${i === active ? " is-active" : ""}`}
+              >
+                <span className="scr-num">{String(i + 1).padStart(2, "0")}</span>
+                <h3 className="scr-name">{s.title}</h3>
+                <p className="scr-line">{s.line}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
   );

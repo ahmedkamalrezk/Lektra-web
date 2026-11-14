@@ -186,7 +186,7 @@
 
 
 /* ══════════════════════════════════════════════════════════════
-   SCREENS — the app, screen by screen, captions underneath
+   SCREENS — the phone stays pinned, the copy scrolls past it
    ══════════════════════════════════════════════════════════════ */
 
 .scr-section {
@@ -202,7 +202,7 @@
 }
 
 .scr-head {
-  margin: 0 auto clamp(36px, 4.5vw, 60px);
+  margin: 0 auto clamp(40px, 5vw, 64px);
   max-width: 34rem;
   text-align: center;
 }
@@ -224,86 +224,161 @@
   color: var(--th-text-heading);
 }
 
-.scr-grid {
+.scr-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(24px, 5vw, 72px);
+}
+
+/* ── Pinned phone ── */
+.scr-visual {
+  position: sticky;
+  top: clamp(84px, 12vh, 128px);
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: clamp(28px, 3.4vw, 44px) clamp(16px, 2.2vw, 28px);
+  align-self: start;
+  isolation: isolate;
+}
+
+.scr-visual::before {
+  content: "";
+  position: absolute;
+  inset: 6% -4% 2%;
+  z-index: -1;
+  background: radial-gradient(60% 55% at 50% 45%, rgba(139, 92, 246, .10), transparent 72%);
+  filter: blur(38px);
+  pointer-events: none;
+}
+
+.scr-frame {
+  position: relative;
+  height: min(74vh, 680px);
+  aspect-ratio: 1170 / 2532;
+  overflow: hidden;
+  border-radius: 26px;
+  border: 1px solid var(--th-card-bd);
+  background: var(--th-card-bg);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, .04),
+    0 22px 56px rgba(0, 0, 0, .12);
+}
+
+.scr-shot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px) scale(1.006);
+  transition:
+    opacity .45s ease,
+    transform .5s cubic-bezier(.16, 1, .3, 1),
+    visibility .45s linear;
+}
+
+.scr-shot.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+/* ── Copy column ── */
+.scr-steps {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.scr-item {
-  flex: 0 1 clamp(220px, 22.5%, 280px);
-  min-width: 0;
-}
-
-.scr-figure {
+.scr-step {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin: 0;
+  justify-content: center;
+  min-height: clamp(220px, 40vh, 360px);
+  opacity: .45;
+  transition: opacity .4s ease;
 }
 
-.scr-frame {
-  overflow: hidden;
-  border-radius: 24px;
-  border: 1px solid var(--th-card-bd);
-  background: var(--th-card-bg);
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, .04),
-    0 16px 40px rgba(0, 0, 0, .10);
-  transition:
-    transform .35s cubic-bezier(.16, 1, .3, 1),
-    box-shadow .35s cubic-bezier(.16, 1, .3, 1);
+.scr-step.is-active {
+  opacity: 1;
 }
 
-.scr-item:hover .scr-frame {
-  transform: translateY(-4px);
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, .05),
-    0 26px 60px rgba(0, 0, 0, .14);
+.scr-num {
+  margin-bottom: 14px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .18em;
+  font-variant-numeric: tabular-nums;
+  color: var(--th-text-muted);
 }
 
-.scr-frame img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.scr-caption {
-  text-align: center;
+.scr-step.is-active .scr-num {
+  color: var(--th-clr-plum);
 }
 
 .scr-name {
-  margin: 0 0 4px;
-  font-size: 15.5px;
+  margin: 0 0 10px;
+  font-size: clamp(1.4rem, 2.3vw, 1.8rem);
   font-weight: 600;
-  letter-spacing: -0.012em;
+  letter-spacing: -.03em;
+  line-height: 1.12;
   color: var(--th-text-heading);
 }
 
 .scr-line {
   margin: 0;
-  font-size: 13.5px;
-  line-height: 1.5;
-  color: var(--th-text-secondary);
-  text-wrap: balance;
+  max-width: 26rem;
+  font-size: clamp(1rem, 1.15vw, 1.0625rem);
+  line-height: 1.6;
+  color: var(--th-text-body);
+  text-wrap: pretty;
 }
 
-@media (max-width: 720px) {
-  .scr-item {
-    flex: 0 1 290px;
-    max-width: 100%;
+/* ── Narrow screens: the phone pins to the top, copy slides under it ── */
+@media (max-width: 899px) {
+  .scr-layout {
+    display: block;
+  }
+
+  .scr-visual {
+    top: 76px;
+    z-index: 2;
+    padding: 14px 0 22px;
+    background: var(--th-bg-page);
+  }
+
+  .scr-visual::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 -22px;
+    height: 22px;
+    background: linear-gradient(to bottom, var(--th-bg-page), transparent);
+    pointer-events: none;
+  }
+
+  .scr-frame {
+    height: clamp(300px, 50vh, 430px);
+  }
+
+  .scr-step {
+    min-height: 44vh;
+  }
+
+  .scr-name {
+    font-size: 1.5rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .scr-frame { transition: none; }
-  .scr-item:hover .scr-frame { transform: none; }
+  .scr-shot,
+  .scr-step {
+    transition: none;
+  }
 }
-
 
 /* ══════════════════════════════════════════════════════════════
    FADE-IN ANIMATIONS

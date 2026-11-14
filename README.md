@@ -47,7 +47,7 @@ linked from every call to action here.
 
 | Page | What it is |
 | --- | --- |
-| `/` | Landing page: hero, seven app screens with one-line captions, final call to action |
+| `/` | Landing page: hero, a pinned phone that swaps through seven screens as you scroll, final call to action |
 | `/features` | The detail: six core features, install models, every capability, the comparison, privacy |
 | `/download` | Install instructions for iPhone, Android and desktop (PWA) |
 | `/pricing` | Free, forever — and what that means |

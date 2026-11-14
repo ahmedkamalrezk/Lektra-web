@@ -35,7 +35,6 @@ export const metadata: Metadata = {
       { url: asset("/android-chrome-512x512.png"), sizes: "512x512", type: "image/png" },
     ],
   },
-  manifest: asset("/site.webmanifest"),
   authors: [{ name: "Lektra" }],
   openGraph: {
     type: "website",

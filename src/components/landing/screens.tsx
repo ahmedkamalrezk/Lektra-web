@@ -6,10 +6,20 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { asset } from "@/lib/site";
+// Imported rather than linked from `public/`, so every regeneration gets a
+// content-hashed URL: a stale copy can never survive in a browser cache.
+import backupRestoreShot from "../../../public/backup-restore.webp";
+import calendarShot from "../../../public/calendar.webp";
+import scanShot from "../../../public/scan.webp";
+import searchShot from "../../../public/search-results.webp";
+import settingsShot from "../../../public/settings-menu.webp";
+import themesShot from "../../../public/theme-gallery.webp";
+import voiceShot from "../../../public/voice.webp";
 
 type Screen = {
   img: string;
+  width: number;
+  height: number;
   alt: string;
   title: string;
   line: string;
@@ -17,43 +27,57 @@ type Screen = {
 
 const SCREENS: Screen[] = [
   {
-    img: asset("/calendar.webp"),
+    img: calendarShot.src,
+    width: calendarShot.width,
+    height: calendarShot.height,
     alt: "Lektra's November calendar, with every class, quiz and deadline on its day",
     title: "The whole month",
     line: "Every class, quiz and deadline in one grid.",
   },
   {
-    img: asset("/scan.webp"),
+    img: scanShot.src,
+    width: scanShot.width,
+    height: scanShot.height,
     alt: "A photographed timetable being read into Lektra's week",
     title: "Scan your timetable",
     line: "Photograph the sheet. The week fills itself.",
   },
   {
-    img: asset("/voice.webp"),
+    img: voiceShot.src,
+    width: voiceShot.width,
+    height: voiceShot.height,
     alt: "A plan being added to Lektra by voice",
     title: "Say it instead",
     line: "Speak a plan on the way to class.",
   },
   {
-    img: asset("/search-results.webp"),
+    img: searchShot.src,
+    width: searchShot.width,
+    height: searchShot.height,
     alt: "Search results in Lektra across subjects",
     title: "Find anything",
     line: "One field, every class and deadline.",
   },
   {
-    img: asset("/theme-gallery.webp"),
+    img: themesShot.src,
+    width: themesShot.width,
+    height: themesShot.height,
     alt: "Lektra's theme gallery, light and dark presets side by side",
     title: "Forty themes",
     line: "Light, dark, or one you build.",
   },
   {
-    img: asset("/settings-menu.webp"),
+    img: settingsShot.src,
+    width: settingsShot.width,
+    height: settingsShot.height,
     alt: "Lektra settings for install, reminders and voice",
     title: "The small stuff",
     line: "Reminders, install, voice — one place.",
   },
   {
-    img: asset("/backup-restore.webp"),
+    img: backupRestoreShot.src,
+    width: backupRestoreShot.width,
+    height: backupRestoreShot.height,
     alt: "Lektra's backup and restore sheet over the calendar",
     title: "Move it with a file",
     line: "Export, restore, done. No account.",
@@ -130,8 +154,8 @@ export function Screens() {
                   key={s.img}
                   src={s.img}
                   alt={s.alt}
-                  width={1170}
-                  height={2532}
+                  width={s.width}
+                  height={s.height}
                   loading={i === 0 ? "eager" : "lazy"}
                   decoding="async"
                   className={`scr-shot${i === active ? " is-active" : ""}`}

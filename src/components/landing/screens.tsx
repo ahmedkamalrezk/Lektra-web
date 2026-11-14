@@ -70,15 +70,29 @@ export function Screens() {
     const steps = Array.from(list.querySelectorAll<HTMLElement>("[data-step]"));
     if (!steps.length) return;
 
+    const visual = list.parentElement?.querySelector<HTMLElement>(".scr-visual");
     let frame = 0;
 
+    // The screen follows whichever caption is closest to the reading line, not
+    // whichever block happens to have crossed it: that way the phone never
+    // shows a screen whose words have already scrolled away.
     const sync = () => {
       frame = 0;
+      const vh = window.innerHeight;
       const narrow = window.matchMedia("(max-width: 899px)").matches;
-      const line = window.innerHeight * (narrow ? 0.68 : 0.45);
+      const bandBottom =
+        narrow && visual ? Math.min(visual.getBoundingClientRect().bottom, vh) : 0;
+      const target = narrow ? bandBottom + (vh - bandBottom) * 0.5 : vh * 0.45;
+
       let next = 0;
+      let closest = Infinity;
       for (let i = 0; i < steps.length; i += 1) {
-        if (steps[i].getBoundingClientRect().top <= line) next = i;
+        const box = steps[i].getBoundingClientRect();
+        const distance = Math.abs(box.top + box.height / 2 - target);
+        if (distance < closest) {
+          closest = distance;
+          next = i;
+        }
       }
       setActive((prev) => (prev === next ? prev : next));
     };

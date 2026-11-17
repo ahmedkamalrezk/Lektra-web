@@ -16,21 +16,8 @@ export default function GooglePlayPage() {
       <DownloadHeader />
 
       <main className="mx-auto flex min-h-[calc(100svh-76px)] max-w-2xl flex-col items-center justify-center px-6 pb-24 text-center">
-        <span
-          className="flex h-16 w-16 items-center justify-center rounded-2xl"
-          style={{
-            background: "var(--th-sf-04)",
-            border: "1px solid var(--th-on-06)",
-            color: "var(--th-text-heading)",
-          }}
-        >
-          <svg className="h-8 w-8" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M5 3.2v17.6c0 .8.9 1.3 1.6.9l14.2-8.8a1 1 0 0 0 0-1.8L6.6 2.3A1 1 0 0 0 5 3.2z" />
-          </svg>
-        </span>
-
         <p
-          className="mt-7 text-[12px] font-semibold uppercase tracking-[0.14em]"
+          className="text-[12px] font-semibold uppercase tracking-[0.14em]"
           style={{ color: "var(--th-text-muted)" }}
         >
           Google Play

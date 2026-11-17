@@ -182,10 +182,11 @@ export function Screens() {
               </div>
             </div>
 
-            <div className="scr-dots" aria-hidden="true">
-              {SCREENS.map((s, i) => (
-                <span key={s.img} className={`scr-dot${i === active ? " is-on" : ""}`} />
-              ))}
+            <div className="scr-progress" aria-hidden="true">
+              <span
+                className="scr-progress-fill"
+                style={{ width: `${((active + 1) / SCREENS.length) * 100}%` }}
+              />
             </div>
           </div>
 

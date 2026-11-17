@@ -14,7 +14,6 @@ import { APP_URL, FEEDBACK_HREF, asset } from "@/lib/site";
 
 export function Navbar() {
   const [dark, setDark] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleScroll = useCallback(() => {
@@ -26,9 +25,6 @@ export function Navbar() {
       if (rect.top <= navBottom && rect.bottom > 0) inDark = true;
     });
     setDark(inDark);
-    // Past the hero the bar frosts over, so headings and captions passing
-    // underneath stay legible instead of colliding with the logo.
-    setScrolled(window.scrollY > 12);
   }, []);
 
   useEffect(() => {
@@ -38,22 +34,7 @@ export function Navbar() {
   }, [handleScroll]);
 
   return (
-    <header
-      className="fixed top-0 z-50 w-full"
-      style={{
-        background: scrolled
-          ? dark
-            ? "rgba(18, 18, 20, .74)"
-            : "rgba(255, 255, 255, .78)"
-          : "transparent",
-        backdropFilter: scrolled ? "saturate(180%) blur(16px)" : "none",
-        WebkitBackdropFilter: scrolled ? "saturate(180%) blur(16px)" : "none",
-        borderBottom: `1px solid ${
-          scrolled ? (dark ? "rgba(255, 255, 255, .08)" : "var(--th-bd-subtle)") : "transparent"
-        }`,
-        transition: "background .3s, border-color .3s",
-      }}
-    >
+    <header className="fixed top-0 z-50 w-full">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-5 pb-3">
         {/* ── Logo ────────────────────────────────────────────── */}
         <Link href="/" className="relative z-10 flex items-center gap-2.5">

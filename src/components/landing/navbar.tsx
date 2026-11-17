@@ -6,6 +6,7 @@ import Link from "next/link";
 const NAV_ITEMS = [
   { label: "Features", href: "/features" },
   { label: "Install", href: "/download" },
+  { label: "Pricing", href: "/pricing" },
   { label: "Privacy", href: "/privacy" },
 ];
 
@@ -125,7 +126,7 @@ export function Navbar() {
             href={APP_URL}
             target="_blank"
             rel="noreferrer"
-            className="hidden rounded-full px-5 py-2 text-[14px] font-medium transition-colors sm:inline-block"
+            className="hidden rounded-full px-5 py-2 text-[14px] font-medium transition-colors lg:inline-block"
             style={{
               color: dark ? "rgba(255,255,255,.55)" : "var(--th-text-secondary)",
             }}

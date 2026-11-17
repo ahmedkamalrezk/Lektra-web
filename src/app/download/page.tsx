@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import { APP_URL, FEEDBACK_HREF, asset } from "@/lib/site";
+import { DownloadHeader } from "@/components/download/download-header";
+import { APP_URL } from "@/lib/site";
 
 /* ── Platform icons ── */
 function AppleIcon({ className }: { className?: string }) {
@@ -19,6 +20,14 @@ function PhoneIcon({ className }: { className?: string }) {
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
       <rect x="6.5" y="2.5" width="11" height="19" rx="2.5" />
       <path d="M10.5 18.5h3" />
+    </svg>
+  );
+}
+
+function PlayIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M5 3.2v17.6c0 .8.9 1.3 1.6.9l14.2-8.8a1 1 0 0 0 0-1.8L6.6 2.3A1 1 0 0 0 5 3.2z" />
     </svg>
   );
 }
@@ -138,61 +147,7 @@ export default function DownloadPage() {
 
   return (
     <div className="min-h-screen" style={{ background: "var(--th-bg-page)" }}>
-      {/* ── Navbar ── */}
-      <header className="sticky top-0 z-50 w-full" style={{ background: "var(--th-bg-page)" }}>
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-2.5">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={asset("/lektra-icon-192.png")}
-              alt=""
-              width={28}
-              height={28}
-              className="h-[28px] w-[28px] shrink-0 rounded-[7px]"
-            />
-            <span
-              className="text-[16px] font-semibold tracking-[-0.01em]"
-              style={{ color: "var(--th-text-heading)" }}
-            >
-              Lektra
-            </span>
-          </Link>
-          <nav className="flex items-center gap-6">
-            <Link
-              href="/features"
-              className="text-[14px] font-medium transition-colors"
-              style={{ color: "var(--th-text-secondary)" }}
-            >
-              Features
-            </Link>
-            <Link
-              href="/privacy"
-              className="text-[14px] font-medium transition-colors"
-              style={{ color: "var(--th-text-secondary)" }}
-            >
-              Privacy
-            </Link>
-            <Link
-              href={FEEDBACK_HREF}
-              aria-label="Send feedback"
-              className="transition-colors"
-              style={{ color: "var(--th-text-secondary)" }}
-            >
-              <svg
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={1.7}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4 8.9 8.9 0 0 1-3.8-.9L3 21l1.9-4.9A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z" />
-              </svg>
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <DownloadHeader />
 
       <main className="mx-auto max-w-5xl px-6 pb-28">
         {/* ── Hero ── */}
@@ -248,7 +203,7 @@ export default function DownloadPage() {
             </div>
           </div>
 
-          <div className="mt-6 flex justify-center">
+          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
               href={APP_URL}
               target="_blank"
@@ -258,6 +213,27 @@ export default function DownloadPage() {
             >
               Open Lektra
             </a>
+            <Link
+              href="/download/google-play"
+              className="flex items-center gap-2.5 rounded-full border px-5 py-2.5 transition-colors hover:bg-[var(--th-sf-03)]"
+              style={{ borderColor: "var(--th-card-bd)", background: "var(--th-card-bg)" }}
+            >
+              <PlayIcon className="h-5 w-5" />
+              <span className="text-left leading-tight">
+                <span
+                  className="block text-[10px] font-medium uppercase tracking-[0.12em]"
+                  style={{ color: "var(--th-text-muted)" }}
+                >
+                  Get it on
+                </span>
+                <span
+                  className="block text-[14px] font-semibold"
+                  style={{ color: "var(--th-text-heading)" }}
+                >
+                  Google Play
+                </span>
+              </span>
+            </Link>
           </div>
           <p className="mt-4 text-center text-[13px]" style={{ color: "var(--th-text-muted)" }}>
             Free. No account. Works offline once installed.

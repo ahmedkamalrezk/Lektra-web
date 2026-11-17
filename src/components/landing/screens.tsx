@@ -97,25 +97,33 @@ export function Screens() {
     const narrow = window.matchMedia("(max-width: 899px)");
     let frame = 0;
 
-    // On a phone every screen sits next to its own words, so there is nothing
-    // to swap. On wider screens the phone follows whichever caption is closest
+    // Wide screens pin the phone and swap it to whichever caption is closest
     // to the reading line, not whichever block happens to have crossed it:
     // that way it never shows a screen whose words have already scrolled away.
+    // Phones get a swipe track instead, so the dots follow its position.
     const sync = () => {
       frame = 0;
-      if (narrow.matches) return;
-      const target = window.innerHeight * 0.45;
-
       let next = 0;
-      let closest = Infinity;
-      for (let i = 0; i < steps.length; i += 1) {
-        const box = steps[i].getBoundingClientRect();
-        const distance = Math.abs(box.top + box.height / 2 - target);
-        if (distance < closest) {
-          closest = distance;
-          next = i;
+
+      if (narrow.matches) {
+        const slide = steps[0].getBoundingClientRect().width || 1;
+        next = Math.min(
+          steps.length - 1,
+          Math.max(0, Math.round(list.scrollLeft / slide)),
+        );
+      } else {
+        const target = window.innerHeight * 0.45;
+        let closest = Infinity;
+        for (let i = 0; i < steps.length; i += 1) {
+          const box = steps[i].getBoundingClientRect();
+          const distance = Math.abs(box.top + box.height / 2 - target);
+          if (distance < closest) {
+            closest = distance;
+            next = i;
+          }
         }
       }
+
       setActive((prev) => (prev === next ? prev : next));
     };
 
@@ -126,10 +134,12 @@ export function Screens() {
     sync();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
+    list.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       if (frame) window.cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      list.removeEventListener("scroll", onScroll);
     };
   }, []);
 
@@ -187,6 +197,13 @@ export function Screens() {
               </li>
             ))}
           </ol>
+
+          {/* Which of the seven the swipe track is on. Phones only. */}
+          <div className="scr-dots" aria-hidden="true">
+            {SCREENS.map((s, i) => (
+              <span key={s.img} className={`scr-dot${i === active ? " is-on" : ""}`} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

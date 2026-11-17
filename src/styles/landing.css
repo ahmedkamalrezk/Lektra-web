@@ -310,7 +310,8 @@
 
 /* Only the narrow layout shows a screen per caption; the desktop gallery has
    its own single frame. */
-.scr-step-shot {
+.scr-step-shot,
+.scr-dots {
   display: none;
 }
 
@@ -345,24 +346,39 @@
   text-wrap: pretty;
 }
 
-/* ── Narrow screens: no pinned phone. Each screen travels with its caption ── */
+/* ── Narrow screens: one screen per swipe, the dots show where you are ── */
 @media (max-width: 899px) {
   .scr-layout {
     display: block;
   }
 
-  /* The desktop gallery is one frame that swaps images. On a phone that left
-     the copy floating far below the phone, so the same seven screens are laid
-     out one after another, each with the words that belong to it. */
+  /* The desktop gallery is one frame that swaps images. On a phone the seven
+     screens become a swipe track: one complete screen per view, its words
+     underneath, and no pinned band eating half the viewport. */
   .scr-visual {
     display: none;
   }
 
   .scr-steps {
-    gap: clamp(40px, 8vw, 56px);
+    flex-direction: row;
+    gap: 0;
+    margin-inline: calc(-1 * clamp(20px, 4vw, 32px));
+    padding-inline: clamp(20px, 4vw, 32px);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: clamp(20px, 4vw, 32px);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .scr-steps::-webkit-scrollbar {
+    display: none;
   }
 
   .scr-step {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
     min-height: 0;
     align-items: center;
     justify-content: flex-start;
@@ -384,7 +400,7 @@
       0 24px 56px rgba(0, 0, 0, .14);
   }
 
-  /* Every block is complete on its own, so no number fades in and out. */
+  /* Every slide is complete on its own, so no number fades in and out. */
   .scr-step .scr-num {
     color: var(--th-clr-plum);
   }
@@ -395,6 +411,28 @@
 
   .scr-line {
     margin-inline: auto;
+  }
+
+  .scr-dots {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    margin-top: clamp(24px, 5vw, 32px);
+  }
+
+  .scr-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--th-on-12);
+    transition:
+      width .25s ease,
+      background .25s ease;
+  }
+
+  .scr-dot.is-on {
+    width: 20px;
+    background: var(--th-clr-plum);
   }
 }
 

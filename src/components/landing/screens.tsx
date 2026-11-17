@@ -94,19 +94,17 @@ export function Screens() {
     const steps = Array.from(list.querySelectorAll<HTMLElement>("[data-step]"));
     if (!steps.length) return;
 
-    const visual = list.parentElement?.querySelector<HTMLElement>(".scr-visual");
+    const narrow = window.matchMedia("(max-width: 899px)");
     let frame = 0;
 
-    // The screen follows whichever caption is closest to the reading line, not
-    // whichever block happens to have crossed it: that way the phone never
-    // shows a screen whose words have already scrolled away.
+    // On a phone every screen sits next to its own words, so there is nothing
+    // to swap. On wider screens the phone follows whichever caption is closest
+    // to the reading line, not whichever block happens to have crossed it:
+    // that way it never shows a screen whose words have already scrolled away.
     const sync = () => {
       frame = 0;
-      const vh = window.innerHeight;
-      const narrow = window.matchMedia("(max-width: 899px)").matches;
-      const bandBottom =
-        narrow && visual ? Math.min(visual.getBoundingClientRect().bottom, vh) : 0;
-      const target = narrow ? bandBottom + (vh - bandBottom) * 0.5 : vh * 0.45;
+      if (narrow.matches) return;
+      const target = window.innerHeight * 0.45;
 
       let next = 0;
       let closest = Infinity;
@@ -171,6 +169,18 @@ export function Screens() {
                 data-step={i}
                 className={`scr-step${i === active ? " is-active" : ""}`}
               >
+                {/* Narrow screens have no pinned phone: each screen travels
+                    with its own caption instead of swapping behind the copy. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={s.img}
+                  alt={s.alt}
+                  width={s.width}
+                  height={s.height}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  className="scr-step-shot"
+                />
                 <span className="scr-num">{String(i + 1).padStart(2, "0")}</span>
                 <h3 className="scr-name">{s.title}</h3>
                 <p className="scr-line">{s.line}</p>

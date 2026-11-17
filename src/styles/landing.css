@@ -308,6 +308,12 @@
   opacity: 1;
 }
 
+/* Only the narrow layout shows a screen per caption; the desktop gallery has
+   its own single frame. */
+.scr-step-shot {
+  display: none;
+}
+
 .scr-num {
   margin-bottom: 14px;
   font-size: 12px;
@@ -339,47 +345,56 @@
   text-wrap: pretty;
 }
 
-/* ── Narrow screens: the phone pins to the top, copy slides under it ── */
+/* ── Narrow screens: no pinned phone. Each screen travels with its caption ── */
 @media (max-width: 899px) {
   .scr-layout {
     display: block;
   }
 
-  /* Full-bleed band from the very top of the viewport, so no copy can show
-     above the phone or peek past its side edges. */
+  /* The desktop gallery is one frame that swaps images. On a phone that left
+     the copy floating far below the phone, so the same seven screens are laid
+     out one after another, each with the words that belong to it. */
   .scr-visual {
-    top: 0;
-    z-index: 2;
-    margin-inline: calc(-1 * clamp(20px, 4vw, 32px));
-    padding: 82px clamp(20px, 4vw, 32px) 26px;
-    background: var(--th-bg-page);
-  }
-
-  /* The band is solid: no glow, so nothing spills past the viewport edge. */
-  .scr-visual::before {
     display: none;
   }
 
-  /* Copy dissolves into the band instead of stopping at a hard edge. */
-  .scr-visual::after {
-    content: "";
-    position: absolute;
-    inset: auto 0 -1px;
-    height: 26px;
-    background: linear-gradient(to bottom, var(--th-bg-page) 45%, transparent);
-    pointer-events: none;
-  }
-
-  .scr-frame {
-    height: clamp(280px, 44vh, 400px);
+  .scr-steps {
+    gap: clamp(40px, 8vw, 56px);
   }
 
   .scr-step {
-    min-height: 46vh;
+    min-height: 0;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    opacity: 1;
+  }
+
+  .scr-step-shot {
+    display: block;
+    width: min(68vw, 280px);
+    height: auto;
+    margin-bottom: clamp(22px, 5vw, 28px);
+    border-radius: 24px;
+    border: 1px solid rgba(0, 0, 0, .07);
+    background: var(--th-card-bg);
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, .02),
+      0 2px 6px rgba(0, 0, 0, .05),
+      0 24px 56px rgba(0, 0, 0, .14);
+  }
+
+  /* Every block is complete on its own, so no number fades in and out. */
+  .scr-step .scr-num {
+    color: var(--th-clr-plum);
   }
 
   .scr-name {
     font-size: 1.5rem;
+  }
+
+  .scr-line {
+    margin-inline: auto;
   }
 }
 

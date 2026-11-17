@@ -100,16 +100,18 @@ export function Screens() {
     // Wide screens pin the phone and swap it to whichever caption is closest
     // to the reading line, not whichever block happens to have crossed it:
     // that way it never shows a screen whose words have already scrolled away.
-    // Phones get a swipe track instead, so the dots follow its position.
+    // Phones pin the same phone with the caption attached and step through the
+    // screens as each invisible block crosses the top edge.
     const sync = () => {
       frame = 0;
       let next = 0;
 
       if (narrow.matches) {
-        const slide = steps[0].getBoundingClientRect().width || 1;
+        const first = steps[0].getBoundingClientRect();
+        const stepH = first.height || 1;
         next = Math.min(
           steps.length - 1,
-          Math.max(0, Math.round(list.scrollLeft / slide)),
+          Math.max(0, Math.floor((window.innerHeight - first.top) / stepH)),
         );
       } else {
         const target = window.innerHeight * 0.45;
@@ -134,12 +136,10 @@ export function Screens() {
     sync();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
-    list.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       if (frame) window.cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
-      list.removeEventListener("scroll", onScroll);
     };
   }, []);
 
@@ -170,6 +170,23 @@ export function Screens() {
                 />
               ))}
             </div>
+
+            {/* Phones pin the phone with its words attached, so the visible
+                copy lives here. The list below keeps the scroll length and
+                stays readable for screen readers. */}
+            <div className="scr-caption" aria-hidden="true">
+              <div className="scr-caption-inner" key={active}>
+                <span className="scr-num">{String(active + 1).padStart(2, "0")}</span>
+                <h3 className="scr-name">{SCREENS[active].title}</h3>
+                <p className="scr-line">{SCREENS[active].line}</p>
+              </div>
+            </div>
+
+            <div className="scr-dots" aria-hidden="true">
+              {SCREENS.map((s, i) => (
+                <span key={s.img} className={`scr-dot${i === active ? " is-on" : ""}`} />
+              ))}
+            </div>
           </div>
 
           <ol className="scr-steps" ref={stepsRef}>
@@ -179,31 +196,12 @@ export function Screens() {
                 data-step={i}
                 className={`scr-step${i === active ? " is-active" : ""}`}
               >
-                {/* Narrow screens have no pinned phone: each screen travels
-                    with its own caption instead of swapping behind the copy. */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={s.img}
-                  alt={s.alt}
-                  width={s.width}
-                  height={s.height}
-                  loading={i === 0 ? "eager" : "lazy"}
-                  decoding="async"
-                  className="scr-step-shot"
-                />
                 <span className="scr-num">{String(i + 1).padStart(2, "0")}</span>
                 <h3 className="scr-name">{s.title}</h3>
                 <p className="scr-line">{s.line}</p>
               </li>
             ))}
           </ol>
-
-          {/* Which of the seven the swipe track is on. Phones only. */}
-          <div className="scr-dots" aria-hidden="true">
-            {SCREENS.map((s, i) => (
-              <span key={s.img} className={`scr-dot${i === active ? " is-on" : ""}`} />
-            ))}
-          </div>
         </div>
       </div>
     </section>

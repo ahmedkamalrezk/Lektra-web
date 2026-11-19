@@ -11,7 +11,7 @@ are 1080 × 1920 PNGs in `store/play/screenshots/`.
 | Short description (max 80) | Study planner: scan your timetable, track deadlines, works offline. |
 | Category | Education |
 | Tags | Study planner, Timetable, Student, Offline |
-| Contact email | ahmedkamalrezk@gmail.com |
+| Contact email | ahmed.kamalrezkk@gmail.com |
 | Privacy policy | https://ahmedkamalrezk.github.io/Lektra-web/privacy/ |
 | Website | https://ahmedkamalrezk.github.io/Lektra-web/ |
 
@@ -52,7 +52,7 @@ Lektra is free to use: no subscription, no locked features, no upsell.
 A NOTE ON INSTALLING
 Lektra installs from Google Play and runs full screen like any other app.
 
-Questions, bugs or feedback: ahmedkamalrezk@gmail.com
+Questions, bugs or feedback: ahmed.kamalrezkk@gmail.com
 Privacy policy: https://ahmedkamalrezk.github.io/Lektra-web/privacy/
 ```
 

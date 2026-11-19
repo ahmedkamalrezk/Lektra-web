@@ -18,7 +18,7 @@ export const SITE_URL =
 export const APP_URL = "https://ahmedkamalrezk.github.io/Lektra/";
 
 /** Where the feedback form sends its message. */
-export const FEEDBACK_EMAIL = "ahmedkamalrezk@gmail.com";
+export const FEEDBACK_EMAIL = "ahmed.kamalrezkk@gmail.com";
 
 /** The in-site feedback page. */
 export const FEEDBACK_HREF = "/feedback";

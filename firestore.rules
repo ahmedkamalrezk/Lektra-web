@@ -1,0 +1,33 @@
+rules_version = '2';
+
+// Student reviews: anyone may read the list and add a review, nobody may edit
+// or delete from the client. Moderation happens in the Firebase console.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isReview(request.resource.data);
+      allow update, delete: if false;
+    }
+
+    // Nothing else on this project is reachable from the browser.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+
+  function isReview(data) {
+    return data.keys().hasOnly(['name', 'university', 'body', 'createdAt'])
+      && data.keys().hasAll(['name', 'university', 'body', 'createdAt'])
+      && data.name is string
+      && data.name.size() >= 2
+      && data.name.size() <= 60
+      && data.university is string
+      && data.university.size() >= 2
+      && data.university.size() <= 80
+      && data.body is string
+      && data.body.size() >= 20
+      && data.body.size() <= 1000
+      && data.createdAt == request.time;
+  }
+}

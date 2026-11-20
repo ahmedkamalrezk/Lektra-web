@@ -5,12 +5,12 @@ import { APP_URL, FEEDBACK_HREF, asset } from "@/lib/site";
 const footerLinks = {
   Product: [
     { label: "Features", href: "/features" },
+    { label: "Reviews", href: "/reviews" },
     { label: "Install", href: "/download" },
     { label: "Pricing", href: "/pricing" },
   ],
   Elsewhere: [
     { label: "Open Lektra", href: APP_URL },
-    { label: "Send feedback", href: FEEDBACK_HREF },
     { label: "Privacy", href: "/privacy" },
     { label: "Terms", href: "/terms" },
   ],
@@ -51,7 +51,7 @@ export function Footer() {
           {/* Link columns */}
           {Object.entries(footerLinks).map(([heading, links]) => (
             <div key={heading}>
-              <h4 className="th-text-strong text-sm font-semibold">{heading}</h4>
+              <h3 className="th-text-strong text-sm font-semibold">{heading}</h3>
               <ul className="mt-4 space-y-3">
                 {links.map((link) => (
                   <li key={link.label}>

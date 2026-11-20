@@ -51,6 +51,7 @@ linked from every call to action here.
 | `/features` | The detail: six core features, install models, every capability, the comparison, privacy |
 | `/download` | Install instructions for iPhone, Android and desktop (PWA) |
 | `/pricing` | Free, forever — and what that means |
+| `/reviews` | Student reviews: add one, see the share per university, tap a university to read its reviews |
 | `/feedback` | Report a bug, suggest a feature, or say hello — opens a pre-filled mail with your message |
 | `/privacy` | What stays on your device (everything) |
 | `/terms` | Terms of use |
@@ -63,7 +64,8 @@ linked from every call to action here.
 - **GSAP + ScrollTrigger** for the scroll-driven section transitions
 - **Self-hosted fonts** — Gellix and SF Arabic in `src/fonts`, loaded through
   `next/font/local` (fingerprinted, no third-party CDN)
-- No analytics, no trackers, no external requests at runtime
+- No analytics and no trackers. The only runtime request is the reviews
+  database, when one is configured (see [Reviews](#reviews))
 
 ## Getting started
 
@@ -103,6 +105,7 @@ NEXT_PUBLIC_BASE_PATH=/Lektra-web bun run start   # http://localhost:3009/Lektra
     │   ├── fonts.ts            next/font/local — Gellix + SF Arabic
     │   ├── download/           install guide
     │   ├── feedback/           feedback page + form
+    │   ├── reviews/            reviews page, form, stats and cards
     │   ├── (marketing)/        pricing, privacy, terms
     │   ├── robots.ts           crawl rules + sitemap
     │   └── sitemap.ts          route list
@@ -110,10 +113,13 @@ NEXT_PUBLIC_BASE_PATH=/Lektra-web bun run start   # http://localhost:3009/Lektra
     ├── fonts/                  Gellix + SF Arabic (woff2/ttf)
     ├── hooks/                  scroll helpers
     ├── lib/site.ts             links, deployment path, feedback email
+    ├── lib/reviews.ts          review types, validation and storage
     └── styles/
         ├── theme.css           colour, surface and text tokens
         └── landing.css         section layouts and animations
 ```
+
+`firestore.rules` sits at the root for the reviews collection.
 
 ## Editing the site
 
@@ -124,6 +130,33 @@ NEXT_PUBLIC_BASE_PATH=/Lektra-web bun run start   # http://localhost:3009/Lektra
   that references it updates. Reference them through `asset()` from
   `src/lib/site.ts` so they keep working behind a deployment base path.
 - **SEO** is centralised in `src/app/layout.tsx`, `robots.ts` and `sitemap.ts`.
+
+## Reviews
+
+`/reviews` is a separate flow from `/feedback`: visitors add a name, university
+and review, and the page charts the share of reviews per university. The chart
+shows the ten busiest universities plus an "Other universities" bucket; **Show
+all** expands it to every university. Hovering or tapping a university filters
+the cards to that university (and to the grouped bucket, when picked).
+
+Storage is deliberately pluggable:
+
+- **Preview mode** — with no database configured, reviews are written to
+  `localStorage`, the page shows a notice, and a set of tagged example reviews
+  fills the layout. Good for design work and local testing; not shared.
+- **Shared mode** — copy `.env.example` to `.env.local`, create a free Firebase
+  project, enable Firestore in production mode, register a Web app and fill in
+  the `NEXT_PUBLIC_FIREBASE_*` values. Publish
+  [`firestore.rules`](firestore.rules) (console → Firestore → Rules, or
+  `firebase deploy --only firestore:rules`). The page then reads and writes the
+  `reviews` collection for every visitor — live, without a refresh — and the
+  examples disappear.
+
+The web config is safe to ship: the rules allow reading the list and creating a
+review only, with the fields and lengths checked server-side. Updates and deletes
+are denied. To moderate, delete a document in the Firebase console. The public
+form also has a hidden honeypot field; if spam becomes a problem, add App Check
+or a CAPTCHA in front of the write path.
 
 ## Deploy
 
@@ -146,6 +179,10 @@ NEXT_PUBLIC_SITE_URL=https://ahmedkamalrezk.github.io/Lektra-web
 `BASE_PATH` prefixes every internal link and asset (fonts and images go through
 `asset()`); `SITE_URL` feeds the canonical metadata, `robots.txt` and
 `sitemap.xml`. Serve the site from a root domain and both can be left empty.
+
+To ship shared reviews from Pages, add the six `NEXT_PUBLIC_FIREBASE_*` values
+from [Reviews](#reviews) to the build step as repository variables or secrets.
+They are inlined at build time, so a redeploy is needed after changing them.
 
 ### Anywhere else
 

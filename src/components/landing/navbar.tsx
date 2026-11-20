@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { label: "Features", href: "/features" },
   { label: "Install", href: "/download" },
   { label: "Pricing", href: "/pricing" },
+  { label: "Reviews", href: "/reviews" },
   { label: "Privacy", href: "/privacy" },
 ];
 
@@ -71,7 +72,7 @@ export function Navbar() {
             <Link
               key={item.label}
               href={item.href}
-              className="nav-pill-item rounded-full px-4 py-2 text-[14px] font-medium transition-all"
+              className="nav-pill-item rounded-full px-3.5 py-2 text-[14px] font-medium transition-all"
               style={{
                 color: dark ? "rgba(255,255,255,.55)" : "var(--th-text-secondary)",
               }}
@@ -81,7 +82,7 @@ export function Navbar() {
           ))}
           <Link
             href={FEEDBACK_HREF}
-            className="nav-pill-item flex items-center gap-1.5 rounded-full px-4 py-2 text-[14px] font-medium transition-all"
+            className="nav-pill-item flex items-center gap-1.5 rounded-full px-3.5 py-2 text-[14px] font-medium transition-all"
             style={{
               color: dark ? "rgba(255,255,255,.55)" : "var(--th-text-secondary)",
             }}
